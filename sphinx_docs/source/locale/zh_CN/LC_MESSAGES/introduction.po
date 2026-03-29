@@ -195,22 +195,6 @@ msgid ""
 "https://github.com/abubakar668/flowpilot/issues"
 msgstr "📝 GitHub Issues - 提交缺陷与功能需求：https://github.com/abubakar668/flowpilot/issues"
 
-#: ../../source/introduction/welcome/getting_help.rst:5
-msgid "💬 Discussion Forum Discord. https://discord.gg/WuppaG638k"
-msgstr "💬 讨论论坛 Discord：https://discord.gg/WuppaG638k"
-
-#: ../../source/introduction/welcome/getting_help.rst:6
-msgid ""
-"📧 Commercial Support & Customization: For enterprise-level deep "
-"customization, technical training, or deployment support needs, please "
-"contact me at [abubakarkhalid637@gmail.com;abubakarkhalid637@gmail.com]."
-msgstr ""
-"📧 商业支持与定制：如需企业级深度定制、技术培训或部署支持，请联系 "
-"[abubakarkhalid637@gmail.com;abubakarkhalid637@gmail.com]。"
-
-#: ../../source/introduction/welcome/getting_help.rst:7
-msgid "💰 Member Benefits. See https://patreon.com/abubakar668 for more details."
-msgstr "💰 会员权益：详见 https://github.com/abubakar668/flowpilot/blob/master/README_zh.md"
 
 #: ../../source/introduction/welcome/index.rst:2
 msgid "1. Welcome to FlowPilot"

@@ -15,9 +15,6 @@ FlowPilot is an open-source process automation platform built with Django. After
 
 The core of version 3.0 is "making complex business processes simple and visual, making personalized customization needs within reach." With rebuilt process and form designers, plus a powerful extension framework, FlowPilot aims to become the most core process engine in enterprise digital transformation.
 
-## Feature Demo
-[![Feature Demo](https://img.youtube.com/vi/IpLePpajyfU/0.jpg)](https://www.youtube.com/watch?v=IpLePpajyfU)
-
 ## ✨ Core Features
 
 ### 🎯 Revolutionary Visual Design
