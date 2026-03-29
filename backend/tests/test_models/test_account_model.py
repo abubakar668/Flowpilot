@@ -58,7 +58,7 @@ class TestAccountModel(TestCase):
         测试获取角色字典信息格式
         :return:
         """
-        role = LoonRole.objects.get(name='VPN管理员')
+        role = Role.objects.get(name='VPN管理员')
         assert isinstance(role.get_dict(), dict)
 
     def test_dept_get_dict(self):
@@ -66,5 +66,5 @@ class TestAccountModel(TestCase):
         测试获取部门字典信息格式
         :return:
         """
-        dept = LoonDept.objects.get(id=1)
+        dept = Dept.objects.get(id=1)
         assert isinstance(dept.get_dict(), dict)

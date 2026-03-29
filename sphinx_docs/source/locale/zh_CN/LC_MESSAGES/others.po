@@ -37,8 +37,8 @@ msgid ""
 msgstr "关于 v0.x 版本的详细发布说明，请参阅 GitHub Releases："
 
 #: ../../source/others/release_notes/r0.x/index.rst:6
-msgid "https://github.com/abubakarkhalid637/flowpilot/releases"
-msgstr "https://github.com/abubakarkhalid637/flowpilot/releases"
+msgid "https://github.com/abubakar668/flowpilot/releases"
+msgstr "https://github.com/abubakar668/flowpilot/releases"
 
 #: ../../source/others/release_notes/r1.x/index.rst:2
 msgid "r1.x Release Notes"

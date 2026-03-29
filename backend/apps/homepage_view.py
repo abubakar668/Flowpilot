@@ -11,4 +11,4 @@ class HomepageView(View):
         :param kwargs:
         :return:
         """
-        return HttpResponse('<div>欢迎使用flowpilot<br><a href="/manage">管理后台</a><br><a href="/admin">django管理后台</a><br><a href="https://github.com/abubakarkhalid637/flowpilot">使用文档</a></div>')
+        return HttpResponse('<div>欢迎使用flowpilot<br><a href="/manage">管理后台</a><br><a href="/admin">django管理后台</a><br><a href="https://github.com/abubakar668/flowpilot">使用文档</a></div>')

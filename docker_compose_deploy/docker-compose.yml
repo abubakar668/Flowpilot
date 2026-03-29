@@ -23,7 +23,7 @@ services:
 
   flowpilot-ui:
     hostname: flowpilot-ui
-    image: abubakarkhalid637/flowpilot-ui:r3.0.1
+    image: abubakar668/flowpilot-ui:r3.0.1
     container_name: flowpilot-ui
     depends_on:
       - flowpilot-redis
@@ -33,7 +33,7 @@ services:
 
   flowpilot-backend:
     hostname: flowpilot-backend
-    image: abubakarkhalid637/flowpilot-backend:r3.0.1
+    image: abubakar668/flowpilot-backend:r3.0.1
     container_name: flowpilot-backend
     environment:
       DB_NAME: ${POSTGRES_DB}
@@ -62,7 +62,7 @@ services:
 
   flowpilot-task:
     hostname: flowpilot-task
-    image: abubakarkhalid637/flowpilot-backend:r3.0.1
+    image: abubakar668/flowpilot-backend:r3.0.1
     container_name: flowpilot-task
     depends_on:
       - flowpilot-redis

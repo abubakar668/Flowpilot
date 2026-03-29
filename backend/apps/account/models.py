@@ -62,13 +62,12 @@ class UserManager(BaseUserManager):
         # create a new tenant if there is no tenant with id=1
         tenant_queryset = Tenant.objects.filter(id='00000000-0000-0000-0000-000000000001').first()
         if not tenant_queryset:
-            # default_tenant = Tenant(id=1, name="flowpilot", domain="loonapp.com")
-            tenant_name = os.environ.get('TENANT_NAME', 'loonapp')
-            tenant_domain = os.environ.get('TENANT_DOMAIN', 'loonapp.com')
+            tenant_name = os.environ.get('TENANT_NAME', 'flowpilot')
+            tenant_domain = os.environ.get('TENANT_DOMAIN', 'flowpilot.app')
             
             default_tenant = Tenant(name=tenant_name, domain=tenant_domain, id='00000000-0000-0000-0000-000000000001')
             default_tenant.save(using=self._db)
-            Tenant.objects.filter(domain="loonapp.com").update(id=1)
+            Tenant.objects.filter(domain="flowpilot.app").update(id=1)
         user = self.model(email=self.normalize_email(email), name=name, alias=alias)
         user.set_password(password)
         user.tenant_id = '00000000-0000-0000-0000-000000000001'

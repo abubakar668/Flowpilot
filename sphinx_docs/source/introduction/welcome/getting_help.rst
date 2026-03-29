@@ -1,5 +1,5 @@
 1.3 Get Help & Support
 =======================
 
-- 📝 GitHub Issues - Submit bug reports and feature requests. https://github.com/abubakarkhalid637/flowpilot/issues
+- 📝 GitHub Issues - Submit bug reports and feature requests. https://github.com/abubakar668/flowpilot/issues
 - 📧 Contact: abubakarkhalid637@gmail.com

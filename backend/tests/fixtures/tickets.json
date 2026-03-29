@@ -1293,7 +1293,7 @@
     "model": "ticket.ticketflowlog",
     "pk": 42,
     "fields": {
-      "creator": "loonrobot",
+      "creator": "flowpilot_bot",
       "gmt_created": "2018-05-16T07:01:54.040",
       "gmt_modified": "2018-05-16T07:01:54.041",
       "is_deleted": false,
@@ -1329,7 +1329,7 @@
     "model": "ticket.ticketflowlog",
     "pk": 44,
     "fields": {
-      "creator": "loonrobot",
+      "creator": "flowpilot_bot",
       "gmt_created": "2018-05-16T07:03:34.846",
       "gmt_modified": "2018-05-16T07:03:34.847",
       "is_deleted": false,
@@ -1365,7 +1365,7 @@
     "model": "ticket.ticketflowlog",
     "pk": 46,
     "fields": {
-      "creator": "loonrobot",
+      "creator": "flowpilot_bot",
       "gmt_created": "2018-05-16T07:04:45.955",
       "gmt_modified": "2018-05-16T07:04:45.956",
       "is_deleted": false,
@@ -1401,7 +1401,7 @@
     "model": "ticket.ticketflowlog",
     "pk": 48,
     "fields": {
-      "creator": "loonrobot",
+      "creator": "flowpilot_bot",
       "gmt_created": "2018-05-16T07:31:29.552",
       "gmt_modified": "2018-05-16T07:31:29.552",
       "is_deleted": false,
@@ -1437,7 +1437,7 @@
     "model": "ticket.ticketflowlog",
     "pk": 50,
     "fields": {
-      "creator": "loonrobot",
+      "creator": "flowpilot_bot",
       "gmt_created": "2018-05-16T23:21:00.578",
       "gmt_modified": "2018-05-16T23:21:00.578",
       "is_deleted": false,
@@ -1473,7 +1473,7 @@
     "model": "ticket.ticketflowlog",
     "pk": 52,
     "fields": {
-      "creator": "loonrobot",
+      "creator": "flowpilot_bot",
       "gmt_created": "2018-05-16T23:24:03.779",
       "gmt_modified": "2018-05-16T23:24:03.779",
       "is_deleted": false,
@@ -1509,7 +1509,7 @@
     "model": "ticket.ticketflowlog",
     "pk": 54,
     "fields": {
-      "creator": "loonrobot",
+      "creator": "flowpilot_bot",
       "gmt_created": "2018-05-16T23:24:44.338",
       "gmt_modified": "2018-05-16T23:24:44.339",
       "is_deleted": false,
@@ -1545,7 +1545,7 @@
     "model": "ticket.ticketflowlog",
     "pk": 56,
     "fields": {
-      "creator": "loonrobot",
+      "creator": "flowpilot_bot",
       "gmt_created": "2018-05-16T23:33:26.803",
       "gmt_modified": "2018-05-16T23:33:26.804",
       "is_deleted": false,
@@ -1664,7 +1664,7 @@
       "participant": "admin",
       "state_id": 13,
       "intervene_type_id": 0,
-      "ticket_data": "{\"gmt_modified\": \"2018-10-21 11:14:37.663604\", \"gmt_created\": \"2018-10-21 11:14:37.656067\", \"creator\": \"admin\", \"parent_ticket_state_id\": 0, \"participant\": \"loonrobot\", \"workflow_id\": 3, \"parent_ticket_id\": 0, \"in_add_node\": false, \"project_qas\": \"admin\", \"participant_type_id\": 1, \"relation\": \"loonrobot,admin\", \"project_devs\": \"admin\", \"state_id\": 14, \"is_deleted\": false, \"sn\": \"flowpilot_201810210001\", \"add_node_man\": \"\", \"title\": \"\", \"project_code\": \"prj001\"}"
+      "ticket_data": "{\"gmt_modified\": \"2018-10-21 11:14:37.663604\", \"gmt_created\": \"2018-10-21 11:14:37.656067\", \"creator\": \"admin\", \"parent_ticket_state_id\": 0, \"participant\": \"flowpilot_bot\", \"workflow_id\": 3, \"parent_ticket_id\": 0, \"in_add_node\": false, \"project_qas\": \"admin\", \"participant_type_id\": 1, \"relation\": \"flowpilot_bot,admin\", \"project_devs\": \"admin\", \"state_id\": 14, \"is_deleted\": false, \"sn\": \"flowpilot_201810210001\", \"add_node_man\": \"\", \"title\": \"\", \"project_code\": \"prj001\"}"
     }
   },
   {
@@ -1941,7 +1941,7 @@
     "model": "ticket.ticketflowlog",
     "pk": 78,
     "fields": {
-      "creator": "loonrobot",
+      "creator": "flowpilot_bot",
       "gmt_created": "2020-01-16T22:22:40.114",
       "gmt_modified": "2020-01-16T22:22:40.114",
       "is_deleted": false,

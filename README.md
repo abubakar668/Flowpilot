@@ -41,8 +41,8 @@ The core of version 3.0 is "making complex business processes simple and visual,
 
 1. Download docker-compose related files
 ```bash
-wget https://raw.githubusercontent.com/abubakarkhalid637/flowpilot/refs/heads/master/docker_compose_deploy/docker-compose.yml
-wget https://raw.githubusercontent.com/abubakarkhalid637/flowpilot/refs/heads/master/docker_compose_deploy/.env
+wget https://raw.githubusercontent.com/abubakar668/flowpilot/refs/heads/master/docker_compose_deploy/docker-compose.yml
+wget https://raw.githubusercontent.com/abubakar668/flowpilot/refs/heads/master/docker_compose_deploy/.env
 ```
 2. Modify the `.env` file (at minimum, update the passwords)
 3. Start docker-compose
@@ -68,7 +68,6 @@ python manage.py createsuperuser
 ## ❓ Getting Help
 
 - 📝 **GitHub Issues** - Submit bug reports and feature requests.
-- 📧 **Contact**: abubakarkhalid637@gmail.com
 
 If FlowPilot has been helpful to you, please give it a ⭐️ Star!
 

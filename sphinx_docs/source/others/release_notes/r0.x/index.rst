@@ -3,4 +3,4 @@ r0.x Release Notes
 
 For detailed release notes of v0.x versions, please refer to GitHub Releases:
 
-https://github.com/abubakarkhalid637/flowpilot/releases
+https://github.com/abubakar668/flowpilot/releases

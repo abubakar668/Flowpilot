@@ -25,13 +25,13 @@ msgstr "租户管理"
 #: ../../source/user_guide/setting/tenant.rst:4
 msgid ""
 "Flowpilot supports multi-tenant. Most users only need a single tenant; if "
-"you require multi-tenant capabilities, please contact Muhammad Abubakar "
+"you require multi-tenant capabilities, please contact FlowPilot "
 "(abubakarkhalid637@gmail.com; abubakarkhalid637@gmail.com) for licensing. In multi-"
 "tenant mode all data—users, tickets, workflows, notifications, "
 "applications, roles, departments, and more—are fully isolated. Typical "
 "scenarios include group enterprises or SaaS deployments where multiple "
 "independent organizations share one platform."
-msgstr "Flowpilot 支持多租户。大多数用户只需单租户；如需多租户能力，请联系 Muhammad Abubakar（abubakarkhalid637@gmail.com;abubakarkhalid637@gmail.com）获取授权。多租户模式下，用户、工单、流程、通知、应用、角色、部门等数据完全隔离，适用于集团企业或多组织共用平台的 SaaS 场景。"
+msgstr "Flowpilot 支持多租户。大多数用户只需单租户；如需多租户能力，请联系 FlowPilot（abubakarkhalid637@gmail.com;abubakarkhalid637@gmail.com）获取授权。多租户模式下，用户、工单、流程、通知、应用、角色、部门等数据完全隔离，适用于集团企业或多组织共用平台的 SaaS 场景。"
 
 #: ../../source/user_guide/setting/tenant.rst:6
 msgid "tenant info"

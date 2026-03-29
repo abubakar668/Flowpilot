@@ -60,8 +60,8 @@ Downloading Docker Compose Configuration Files
 
    .. code-block:: bash
 
-      wget https://raw.githubusercontent.com/abubakarkhalid637/flowpilot/refs/heads/master/docker_compose_deploy/docker-compose.yml
-      wget https://raw.githubusercontent.com/abubakarkhalid637/flowpilot/refs/heads/master/docker_compose_deploy/.env
+      wget https://raw.githubusercontent.com/abubakar668/flowpilot/refs/heads/master/docker_compose_deploy/docker-compose.yml
+      wget https://raw.githubusercontent.com/abubakar668/flowpilot/refs/heads/master/docker_compose_deploy/.env
 
    Alternatively, if you have already cloned the repository, you can copy the files directly:
 

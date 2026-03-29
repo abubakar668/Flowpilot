@@ -82,4 +82,4 @@ jobs:
           cache-to: type=gha,mode=max
           push: true
           tags: |
-            abubakarkhalid637/flowpilot-ui:${{ github.ref_name }}
+            abubakar668/flowpilot-ui:${{ github.ref_name }}
