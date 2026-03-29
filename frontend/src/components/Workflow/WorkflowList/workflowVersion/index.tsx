@@ -1,0 +1,197 @@
+import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { Button, CircularProgress, Dialog, DialogContent, DialogTitle, MenuItem, Paper, Select, SelectChangeEvent, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { useNavigate } from 'react-router-dom';
+import useSnackbar from '../../../../hooks/useSnackbar';
+import { getWorkflowVersionList, updateWorkflowVersion } from '../../../../services/workflow';
+import { formatDate } from '../../../../utils/dateFormat';
+
+
+function WorkflowVersion({ workflowId }: { workflowId: string }) {
+    const { t } = useTranslation();
+
+    const [workflowVersionList, setWorkflowVersionList] = useState<any[]>([]);
+    const [workflowVersionListLoading, setWorkflowVersionListLoading] = useState(false);
+    const [page, setPage] = useState(1);
+    const [perPage, setPerPage] = useState(10);
+    const [total, setTotal] = useState(0);
+    const [searchValue, setSearchValue] = useState('');
+    const [openedVersionId, setOpenedVersionId] = useState('');
+    const [versionName, setVersionName] = useState('');
+    const [versionDescription, setVersionDescription] = useState('');
+    const [versionType, setVersionType] = useState('default');
+    const { showMessage } = useSnackbar();
+    const navigate = useNavigate();
+
+
+    const fetchWorkflowVersionList = useCallback(async () => {
+        if (!workflowId) {
+            return;
+        }
+        try {
+            setWorkflowVersionListLoading(true);
+            const res = await getWorkflowVersionList(workflowId, searchValue, page, perPage);
+            if (res.code === 0) {
+                setWorkflowVersionList(res.data.versionInfoList);
+                setTotal(res.data.total);
+            } else {
+                showMessage(res.msg, 'error');
+            }
+        } catch (error: any) {
+            showMessage(error.message, 'error');
+        } finally {
+            setWorkflowVersionListLoading(false);
+        }
+    }, [workflowId, searchValue, page, perPage, showMessage]);
+
+
+
+    useEffect(() => {
+        fetchWorkflowVersionList();
+    }, [fetchWorkflowVersionList]);
+
+    const handleChangeKeyword = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(event.target.value);
+    };
+
+    const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPerPage(parseInt(event.target.value, 10));
+    };
+
+    const handleWorkflowVersionClose = () => {
+        setOpenedVersionId('');
+    };
+
+    const handleEditVersion = (workflowVersion: any) => {
+        console.log('workflowVersionworkflowVersion:', workflowVersion)
+        setOpenedVersionId(workflowVersion.id);
+        setVersionName(workflowVersion.name);
+        setVersionDescription(workflowVersion.description);
+        setVersionType(workflowVersion.type);
+    };
+    const handleUpdateVersion = async () => {
+        if (!workflowId || !openedVersionId) {
+            return;
+        }
+        try {
+            const res = await updateWorkflowVersion(workflowId, openedVersionId, { name: versionName, description: versionDescription, type: versionType });
+            if (res.code === 0) {
+                showMessage(t('workflow.updateVersionSuccess'), 'success');
+                handleWorkflowVersionClose();
+            } else {
+                showMessage(res.msg, 'error');
+            }
+        } catch (error: any) {
+            showMessage(error.message, 'error');
+        }
+    }
+
+
+    return (
+        <div>
+            <Grid container spacing={4} justifyContent="left" alignItems="center" sx={{ 'marginLeft': '10px' }}>
+                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                    <TextField fullWidth label={t('common.searchWithKeyword')} onChange={handleChangeKeyword} />
+                </Grid>
+            </Grid>
+
+            <TableContainer component={Paper} sx={{ marginTop: '10px' }}>
+                {workflowVersionListLoading ? (<div><CircularProgress /></div>) : (
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>{t('common.name')}</TableCell>
+                                <TableCell>{t('common.description')}</TableCell>
+                                <TableCell>{t('common.type')}</TableCell>
+                                <TableCell>{t('common.createdAt')}</TableCell>
+                                <TableCell>{t('common.actions')}</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {workflowVersionList ? workflowVersionList.map((workflowVersion) => (
+                                <TableRow key={workflowVersion.id}>
+                                    <TableCell>{workflowVersion.name}</TableCell>
+                                    <TableCell>{workflowVersion.description}</TableCell>
+                                    <TableCell>{workflowVersion.type}</TableCell>
+
+
+                                    <TableCell>{formatDate(workflowVersion.createdAt)}</TableCell>
+                                    <TableCell>
+                                        <div>
+                                            <Button onClick={() => handleEditVersion(workflowVersion)}>{t('workflow.editVersion')}</Button>
+                                            <Button disabled={workflowVersion.type === 'archived'} onClick={() => workflowVersion.type !== 'archived' && navigate(`/workflow/${workflowId}?version_name=${workflowVersion.name}`)}>{t('workflow.editWorkflow')}</Button>
+                                            <Button disabled={workflowVersion.type === 'archived'} onClick={() => workflowVersion.type !== 'archived' && navigate(`/ticket/new?workflow_id=${workflowId}&version_name=${workflowVersion.name}`)}>{t('workflow.createTicket')}</Button>
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            )) : null}
+                        </TableBody>
+                    </Table>)}
+            </TableContainer>
+            <TablePagination
+                rowsPerPageOptions={[10, 25, 100]}
+                component="div"
+                count={total}
+                rowsPerPage={perPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+            <Dialog
+                open={openedVersionId !== ''}
+                keepMounted
+                onClose={handleWorkflowVersionClose}
+                aria-describedby="alert-dialog-slide-description"
+                fullWidth
+            >
+                <DialogTitle>{t('workflow.editVersion')}</DialogTitle>
+                <DialogContent>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                        <TextField
+                            label={t('common.name')}
+                            value={versionName}
+                            fullWidth
+                            margin="normal"
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                setVersionName(event.target.value);
+                            }}
+                        />
+                        <TextField
+                            label={t('common.description')}
+                            value={versionDescription}
+                            fullWidth
+                            margin="normal"
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                setVersionDescription(event.target.value);
+                            }}
+                        />
+                        <Select
+                            value={versionType}
+                            label={t('workflow.versionType')}
+                            onChange={(event: SelectChangeEvent) => {
+                                setVersionType(event.target.value);
+                            }}
+                        >
+                            <MenuItem value={'default'}>default</MenuItem>
+                            <MenuItem value={'archived'}>archived</MenuItem>
+                            <MenuItem value={'candidate'}>candidate</MenuItem>
+                        </Select>
+                        <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
+                            <Button variant="outlined" size={'large'} sx={{ width: '150px' }} onClick={handleUpdateVersion}>{t('common.save')}</Button>
+                            <Button variant="outlined" size={'large'} sx={{ width: '150px' }} >{t('common.cancel')}</Button>
+                        </div>
+                    </div>
+
+                </DialogContent>
+            </Dialog>
+        </div>
+    );
+}
+
+export default WorkflowVersion;

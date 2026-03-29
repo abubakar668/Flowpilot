@@ -1,0 +1,163 @@
+import { ReactNode, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import SnackbarProvider from './components/commonComponents/Snackbar/SnackbarProvider';
+import { getTenantByDomain } from './services/tenant';
+import { setTenantBasicInfo } from './store';
+import PrivateRoute from './utils/PrivateRoute';
+
+import Layout from './components/layout';
+import Role from './components/Organization/Role';
+import UserDept from './components/Organization/UserDept';
+import { ApplicationList } from './components/Setting/Application';
+import { NotificationList } from './components/Setting/Notification';
+import Tenant from './components/Setting/Tenant';
+import AllTicket from './components/Ticket/AllTicket';
+import DutyTicket from './components/Ticket/DutyTicket';
+import InterveneTicket from './components/Ticket/InterveneTicket';
+import NewTicketPage from './components/Ticket/NewTicketPage';
+import OwerTicket from './components/Ticket/OwnerTicket';
+import RelationTicket from './components/Ticket/RelationTicket';
+import TicketDetailPage from './components/Ticket/TicketDetailPage';
+import ViewTicket from './components/Ticket/ViewTicket';
+import Workbench from './components/Workbench';
+import WorkflowDetail from './components/Workflow/WorkflowDetail';
+import { WorkflowList } from './components/Workflow/WorkflowList';
+import SignIn from './SignIn';
+
+
+const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchTenantInfo = async () => {
+      try {
+        const domain = window.location.hostname;
+        const response = await getTenantByDomain(domain);
+        if (response.code === 0) {
+          dispatch(setTenantBasicInfo(response.data.tenantInfo));
+        }
+      } catch (error) {
+        console.error('get tenant info fail:', error);
+      }
+    };
+    fetchTenantInfo();
+
+    // set interval to refresh tenant info, every 30 minutes
+    const intervalId = setInterval(fetchTenantInfo, 30 * 60 * 1000);
+
+    // clear interval when component unmount
+    return () => clearInterval(intervalId);
+  }, [dispatch]);
+
+  const routes: ReactNode[] = [
+    <Route
+      key={'signin'}
+      path={'signIn'}
+      element={< SignIn />}
+    />,
+    <Route
+      key={'root'}
+      path={'/'}
+      element={<PrivateRoute element={<Layout children={<Workbench />} />} />}
+
+    />,
+    <Route
+      key={'home'}
+      path={'home'}
+      element={<PrivateRoute element={<Layout children={<Workbench />} />} />}
+
+    />,
+    <Route
+      key={'ticketManagement'}
+      path={'/ticket'}
+    >
+      <Route key={'ticketNew'}
+        path={'/ticket/new'}
+        element={<PrivateRoute element={<Layout children={<NewTicketPage />} />} />}
+      />
+      <Route key={'ticketDuty'}
+        path={'/ticket/duty'}
+        element={<PrivateRoute element={<Layout children={<DutyTicket />} />} />}
+      />
+      <Route key={'ticketOwner'}
+        path={'/ticket/owner'}
+        element={<PrivateRoute element={<Layout children={<OwerTicket />} />} />}
+      />
+      <Route key={'ticketRelation'}
+        path={'/ticket/relation'}
+        element={<PrivateRoute element={<Layout children={<RelationTicket />} />} />}
+      />
+      <Route key={'ticketView'}
+        path={'/ticket/view'}
+        element={<PrivateRoute element={<Layout children={<ViewTicket />} />} />}
+      />
+      <Route key={'ticketIntervene'}
+        path={'/ticket/intervene'}
+        element={<PrivateRoute element={<Layout children={<InterveneTicket />} />} />}
+      />
+      <Route key={'ticketAll'}
+        path={'/ticket/all'}
+        element={<PrivateRoute element={<Layout children={<AllTicket />} />} />}
+      />
+      <Route key={'ticketDetail'}
+        path={'/ticket/:ticketId'}
+        element={<PrivateRoute element={<Layout children={<TicketDetailPage />} />} />}
+      />
+    </Route>,
+    <Route
+      key={'workflow'}
+      path={'/workflow'}
+      element={<PrivateRoute element={<Layout children={<WorkflowList />} />} />}
+    />,
+    <Route
+      key={'workflowDetail'}
+      path={'/workflow/:workflowId'}
+      element={< WorkflowDetail />}
+    />,
+    <Route
+      key={'organization'}
+      path={'/organization'}
+    >
+      <Route key={'userAndDept'}
+        path={'/organization/userdept'}
+        element={<PrivateRoute element={<Layout children={<UserDept />} />} />}
+      />
+      <Route key={'role'}
+        path={'/organization/role'}
+        element={<PrivateRoute element={<Layout children={<Role />} />} />}
+      />
+    </Route>,
+    <Route
+      key={'setting'}
+      path={'/setting'}
+    >
+      <Route key={'tenant'}
+        path={'/setting/tenant'}
+        element={<PrivateRoute element={<Layout children={<Tenant />} />} />}
+      />
+      <Route key={'application'}
+        path={'/setting/application'}
+        element={<PrivateRoute element={<Layout children={<ApplicationList />} />} />}
+      />
+      <Route key={'notification'}
+        path={'/setting/notification'}
+        element={<PrivateRoute element={<Layout children={<NotificationList />} />} />}
+      />
+    </Route>
+  ];
+
+  return (
+    <SnackbarProvider>
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            {routes}
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </SnackbarProvider>
+  );
+};
+
+export default App;

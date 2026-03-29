@@ -1,0 +1,87 @@
+services:
+  flowpilot-redis:
+    hostname: flowpilot-redis
+    image: redis:8.2.2
+    container_name: flowpilot-redis
+    restart: always
+    ports:
+      - ${REDIS_PORT}:6379
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+
+  flowpilot-pg:
+    hostname: flowpilot-pg
+    image: postgres:15.14
+    container_name: flowpilot-pg
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  flowpilot-ui:
+    hostname: flowpilot-ui
+    image: abubakarkhalid637/flowpilot-ui:r3.0.1
+    container_name: flowpilot-ui
+    depends_on:
+      - flowpilot-redis
+      - flowpilot-pg
+    ports:
+      - 80:80
+
+  flowpilot-backend:
+    hostname: flowpilot-backend
+    image: abubakarkhalid637/flowpilot-backend:r3.0.1
+    container_name: flowpilot-backend
+    environment:
+      DB_NAME: ${POSTGRES_DB}
+      DB_HOST: flowpilot-pg
+      DB_USER: ${POSTGRES_USER}
+      DB_PASS: ${POSTGRES_PASSWORD}
+      REDIS_HOST: flowpilot-redis
+      REDIS_PASS: ${REDIS_PASSWORD}
+      DJANGO_SUPERUSER_PASSWORD: ${ADMIN_PASSWORD}
+      TENANT_NAME: ${TENANT_NAME}
+      TENANT_DOMAIN: ${TENANT_DOMAIN}
+
+    working_dir: /app/flowpilot
+    ports:
+      - 8000:8000
+    command:
+      - sh
+      - -c
+      - |
+        python manage.py makemigrations
+        python manage.py migrate
+        python manage.py createsuperuser --noinput --email ${ADMIN_EMAIL} --name ${ADMIN_NAME} || true
+        gunicorn --bind 0.0.0.0:8000 --workers 4 --chdir /app/flowpilot --pythonpath /app/flowpilot \
+        --access-logfile - --error-logfile - --log-level info \
+        flowpilot.wsgi:application
+
+  flowpilot-task:
+    hostname: flowpilot-task
+    image: abubakarkhalid637/flowpilot-backend:r3.0.1
+    container_name: flowpilot-task
+    depends_on:
+      - flowpilot-redis
+      - flowpilot-pg
+      - flowpilot-backend
+    environment:
+      DB_NAME: ${POSTGRES_DB}
+      DB_HOST: flowpilot-pg
+      DB_USER: ${POSTGRES_USER}
+      DB_PASS: ${POSTGRES_PASSWORD}
+      REDIS_HOST: flowpilot-redis
+      REDIS_PASS: ${REDIS_PASSWORD}
+    command:
+      - sh
+      - -c
+      - |
+        cd /app/flowpilot
+        celery -A tasks worker -l info -c 8 -Q flowpilot
+
+volumes:
+  pg_data:
+    name: ${PG_DATA_VOLUME}
